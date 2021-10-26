@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import numpy.random as random
-
+from scipy import stats
+from scipy.stats import spearmanr
 
 
 
@@ -37,7 +37,6 @@ count = 0 #軸のcount_listの順番を決める変数
 
 
 
-
     
 
 for key, value in leveldic.items():
@@ -54,19 +53,42 @@ for key, value in leveldic.items():
             y = [float(s) for s in suuti_list]
             #print(new_suuti_list)
 
-            
-            ##############################
-            #相関をとる
 
             #相関計算
             x_np = np.array(x)
             y_np = np.array(y)
 
-            # 相関行列を計算
-            coef = np.corrcoef(x_np, y_np)
+
+            #シャピロウィルク検定で正規性の確認
+            #w値とp_value
+            shap_w, shap_p_value = stats.shapiro(y)
+            #p_valueが0.05以上なら，帰無仮説が採択→正規性がある
+            if shap_p_value >= 0.05 :
+                print(count_level,"は正規性があるといえる")
+                #print(shap_p_value)
+
+
+                #ピアソンの相関係数をとる
+                # 相関行列を計算
+                coef = np.corrcoef(x_np, y_np)
+                soukan = coef[0][1]
+
+
+            #p_valueが0.05以下なら，帰無仮説が棄却→正規性がない
+            else:
+                print(count_level,"は正規性があるといえない")
+                #print(shap_p_value)
+            
+                #スピアマンの順位相関係数
+                correlation, pvalue = spearmanr(x, y)
+                soukan = correlation
+            
+            ##############################
+            
 
             #パラメータと相関係数でディクショナリを作成
-            soukankekka[count_level] = coef[0][1] # パラメータ，相関の結果
+            #soukankekka[count_level] = coef[0][1] # パラメータ，相関の結果
+            soukankekka[count_level] = soukan # パラメータ，相関の結果
             
 
            
@@ -80,10 +102,9 @@ for key, value in leveldic.items():
     #パラメータ番号と相関係数の結果を，相関係数の大きい順で表示
     for s in soukankekka:
         print(s)
-        
+            
     print("------")
         
-
 
 
 

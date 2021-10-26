@@ -32,7 +32,7 @@ x = [1.1, 1.1, 3.5, 3.3, 3.9, 4.7, 4.7, 1.2, 1.4, 1.8, 1.3, 2.1, 2.7, 3.8, 3.5, 
 x_np = np.array(x)
 
 count_list = [3, 31, 47, 92, 104, 106, 96, 99, 67, 102, 44, 77, 73,
-              60, 100] #パラメータの番号
+              60, 100,91] #パラメータの番号
 count_zyunban = 0 #count_listの順番を決める変数
 soukankekka = {} #パラメータ：相関係数の結果　のディクショナリ
 
@@ -278,6 +278,20 @@ while count_zyunban < len(count_list):
 
     
         para = "100, 単語の多義性"
+
+
+    #代名詞，三人称，複数型の発生スコア
+    elif count == 91:
+        plt.title('YL_Third person plural pronoun incidence') # タイトル
+        plt.xlabel('YL') # x軸のラベル
+        plt.ylabel('RDL2_No.91') # y軸のラベル
+
+        plt.grid(True) # gridの表示
+        plt.legend() # 凡例の表示
+        plt.savefig("Third person plural pronoun incidence.png")
+
+    
+        para = "91, 代名詞，三人称，複数型の発生スコア"
     
 
 
