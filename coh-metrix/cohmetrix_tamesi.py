@@ -32,7 +32,7 @@ x = [1.1, 1.1, 3.5, 3.3, 3.9, 4.7, 4.7, 1.2, 1.4, 1.8, 1.3, 2.1, 2.7, 3.8, 3.5, 
 x_np = np.array(x)
 
 count_list = [3, 31, 47, 92, 104, 106, 96, 99, 67, 102, 44, 77, 73,
-              60, 100,91] #パラメータの番号
+              60, 100,91, 11] #パラメータの番号
 count_zyunban = 0 #count_listの順番を決める変数
 soukankekka = {} #パラメータ：相関係数の結果　のディクショナリ
 
@@ -68,6 +68,7 @@ while count_zyunban < len(count_list):
 
     # グラフの描写
     plt.plot(x, y, 'o', label='Score')
+    
    
     #総単語数
     if count == 3:
@@ -160,7 +161,7 @@ while count_zyunban < len(count_list):
     elif count == 96:
         plt.title('YL_Familiarity for content word') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.96') # y軸のラベル
+        plt.ylabel('Familiarity_No.96') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -173,7 +174,7 @@ while count_zyunban < len(count_list):
     elif count == 99:
         plt.title('YL_Word meaningfulness every word') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.99') # y軸のラベル
+        plt.ylabel('meaningfulness_No.99') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -186,7 +187,7 @@ while count_zyunban < len(count_list):
     elif count == 67:
         plt.title('YL_Number of words before the main verb') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.67') # y軸のラベル
+        plt.ylabel('Number of words before the main ver_No.67') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -200,7 +201,7 @@ while count_zyunban < len(count_list):
     elif count == 102:
         plt.title('YL_hypernymy for Verb') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.102') # y軸のラベル
+        plt.ylabel('hypernymy for Verb_No.102') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -214,7 +215,7 @@ while count_zyunban < len(count_list):
     elif count == 44:
         plt.title('YL_LSA given/new') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.44') # y軸のラベル
+        plt.ylabel('LSA_No.44') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -228,7 +229,7 @@ while count_zyunban < len(count_list):
     elif count == 77:
         plt.title('YL_preposition') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.77') # y軸のラベル
+        plt.ylabel('preposition_No.77') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -242,7 +243,7 @@ while count_zyunban < len(count_list):
     elif count == 73:
         plt.title('YL_Sentence syntax similarity') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.73') # y軸のラベル
+        plt.ylabel('Sentence syntax similarity_No.73') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -256,7 +257,7 @@ while count_zyunban < len(count_list):
     elif count == 60:
         plt.title('YL_Causal verbs and causal particles incidence') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.60') # y軸のラベル
+        plt.ylabel('Causal verbs and causal particles incidence_No.60') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -270,7 +271,7 @@ while count_zyunban < len(count_list):
     elif count == 100:
         plt.title('YL_Polysemy for content words') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.100') # y軸のラベル
+        plt.ylabel('Polysemy for content words_No.100') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
@@ -284,14 +285,27 @@ while count_zyunban < len(count_list):
     elif count == 91:
         plt.title('YL_Third person plural pronoun incidence') # タイトル
         plt.xlabel('YL') # x軸のラベル
-        plt.ylabel('RDL2_No.91') # y軸のラベル
+        plt.ylabel('Third person plural pronoun incidence_No.91') # y軸のラベル
 
         plt.grid(True) # gridの表示
         plt.legend() # 凡例の表示
-        plt.savefig("Third person plural pronoun incidence.png")
+        plt.savefig("ThirdPersonPluralPronounIncidence.png")
 
     
         para = "91, 代名詞，三人称，複数型の発生スコア"
+
+    #単語の文字数の標準偏差
+    elif count == 11:
+        plt.title('Correlation coefficient') # タイトル
+        plt.xlabel('YL') # x軸のラベル
+        plt.ylabel('Standard deviation of the mean number of letter_No.11') # y軸のラベル
+
+        plt.grid(True) # gridの表示
+        plt.legend() # 凡例の表示
+        plt.savefig("StandardDeviationOfTheMeanNumberOfLetterInWords.png")
+
+    
+        para = "11, 単語の文字数の標準偏差"
     
 
 
