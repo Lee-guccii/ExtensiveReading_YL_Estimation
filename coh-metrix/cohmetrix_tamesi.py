@@ -129,7 +129,7 @@ while count_zyunban < len(count_list):
 
     #FRE
     elif count == 104:
-        plt.title('YL_FRE') # タイトル
+        plt.title('Correlation coefficient') # タイトル
         plt.xlabel('YL') # x軸のラベル
         plt.ylabel('FRE_No.104') # y軸のラベル
 

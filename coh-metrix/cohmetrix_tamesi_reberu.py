@@ -47,7 +47,7 @@ count = 0 #軸のcount_listの順番を決める変数
 
 
 
-
+soukan2=[]
     
 for key, value in leveldic.items():
     soukankekka = {} #パラメーター番号：レベル内での相関係数の結果リスト
@@ -99,6 +99,7 @@ for key, value in leveldic.items():
             #パラメータと相関係数でディクショナリを作成
             #soukankekka[count_level] = coef[0][1] # パラメータ，相関の結果
             soukankekka[count_level] = soukan # パラメータ，相関の結果
+ 
             
 
            
@@ -115,7 +116,13 @@ for key, value in leveldic.items():
             
     print("------")
         
+lst=[]
+for s in range(1,108):
+    lst.append(s)
 
-
+left = np.array(lst)
+height = np.array()
+plt.bar(left, height, align="center")
+plt.savefig("tadokutosyo1.png")
 
 
