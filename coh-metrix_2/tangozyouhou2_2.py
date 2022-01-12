@@ -5,6 +5,8 @@ import re
 from scipy import stats
 from scipy.stats import spearmanr
 
+
+
 #多読図書のYL
 x_tadoku = [1.1, 1.1, 3.5, 3.3, 3.9, 4.7, 4.7, 1.2, 1.4, 1.8, 
             1.3, 2.1, 2.7, 3.8, 3.5, 4.7, 3.3, 3.3, 3.9, 5.7, 
@@ -24,7 +26,7 @@ x_zenbu = x_tadoku + x_ippan
 
 text_suu=1 #テキストの番号
 
-keisankekka=[]#１テキストでの計算結果
+keisankekka=[] #１テキストでの計算結果
 
 
 while text_suu < 65:
@@ -47,27 +49,8 @@ while text_suu < 65:
     hinsi_kosuu=[]#品詞の個数．配列は品詞の名前と対応している．
     list_bangou=0
 
-
-    zentisi=0
-    zentisi_list = ["about", "aboard", "above", "across", "after", "against", "along", "alongside", "amid", "among",  "anti", "around", "as", "at",
-    "bar", "before", "behind", "below", "beneath", "beside", "besides", "between", "beyond", "but", "by",
-    "considering", 
-    "despite", "down", "during", 
-    "except",
-    "for", "from",
-    "in", "inside", "into"
-    "less", "like"
-    "minus",
-    "near", "notwithstanding",
-    "of", "off", "on", "onto", "opposite", "out", "outside", "over",
-    "pace", "past", "pending", "per", "plus", 
-    "re", "regarding", "round", 
-    "save", "saving", "since", 
-    "than", "through", "throughout", "till", "to", "touching", "toward", 
-    "under", "underneath", "unless", "unlike", "until", "up", 
-    "versus", "via", "vice", 
-    "with", "within", "without"]
-    dousi=["VB", "VBD", "VBG", "VBN", "VBP", "VBZ", "IN", "TO", ",", "."]
+    itininsyou=0
+    itininsyou_list = ["i", "my", "me", "myself"]
     kigou=0
     kigou_reigai=["=","+","'"]
 
@@ -75,13 +58,11 @@ while text_suu < 65:
 
     while kazu < len(pos):
         #一人称単数代名詞の数を数える
-        #if (pos[kazu][1] == "IN" or pos[kazu][1] == "TO") and (pos[kazu+1][1] == "DT" or pos[kazu+1][1] == "NN" or pos[kazu+1][1] == 'NNP' or pos[kazu+1][1] == 'NNS' or pos[kazu+1][1] == 'NNPS') and (pos[kazu][0].lower() in zentisi_list):
-        if (pos[kazu][1] == "IN" or pos[kazu][1] == "TO") and (pos[kazu+1][1] not in dousi ) and (pos[kazu][0].lower() in zentisi_list):
-        #if (pos[kazu][1] == "IN" or pos[kazu][1] == "TO") and (pos[kazu][0].lower() in zentisi_list):
-            #print(pos[kazu][0], pos[kazu+1][1])
-            zentisi+=1
+        if ((pos[kazu][1] == "PRP" or pos[kazu][1] == "PRP$") and pos[kazu][0].lower() in itininsyou_list):
+            #print(pos[kazu][0])
+            itininsyou+=1
 
-        #いらない記号は排除
+        #新しい品詞が出てきたら，hinsiリストに品詞を追加して，hinsi_kosuuリストを１にする．
         if (re.match("\W", pos[kazu][1].lower())) and (pos[kazu][0].lower() not in kigou_reigai) :
             kigou+=1
         #品詞をリストに入れる
@@ -97,25 +78,28 @@ while text_suu < 65:
 
 
 
+
         kazu+=1
 
+    #print(hinsi)
+    #print(hinsi_kosuu)
 
-    #print("前置詞",zentisi)
+
+    #総単語数
     zentai = sum(hinsi_kosuu)
-    #print("総単語数",zentai)
+
 
 
     #発生率の計算
-    hasseiritu = (zentisi/zentai)*1000
-    #print('前置詞の発生率:', hasseiritu)
+    hasseiritu = (itininsyou/zentai)*1000
+
 
     #計算結果をリストに入れる
     keisankekka.append(hasseiritu)
+
     print(text_suu)
 
-
     text_suu+=1
-
 
 
 
@@ -128,14 +112,33 @@ x_np = np.array(x_zenbu)
 y_np = np.array(keisankekka)
 
 
+#シャピロウィルク検定で正規性の確認
+#w値とp_value
+shap_w, shap_p_value = stats.shapiro(keisankekka)
+#p_valueが0.05以上なら，帰無仮説が採択→正規性がある
+if shap_p_value >= 0.05 :
+    print("正規性があるといえる")
+    #print(shap_p_value)
 
-#x_zenbuが正規性がないので，スピアマンの相関係数
-#スピアマンの順位相関係数
-correlation, pvalue = spearmanr(x_zenbu, keisankekka)
-soukan = correlation
+
+    #ピアソンの相関係数をとる
+    # 相関行列を計算
+    coef = np.corrcoef(x_np, y_np)
+    soukan = coef[0][1]
 
 
-print("構文パターン密度 - 前置詞句の発生率")
+#p_valueが0.05以下なら，帰無仮説が棄却→正規性がない
+else:
+    print("正規性があるといえない")
+    #print(shap_p_value)
+            
+    #スピアマンの順位相関係数
+    correlation, pvalue = spearmanr(x_zenbu, keisankekka)
+    soukan = correlation
+
+print("単語情報レベル - 一人称単一形式の発生割合")
 print("相関結果:", soukan)
 
-print("前置詞の発生率:", keisankekka)
+print("一人称単一形式の発生割合:", keisankekka)
+
+

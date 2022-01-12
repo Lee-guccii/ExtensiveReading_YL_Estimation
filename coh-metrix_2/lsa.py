@@ -47,8 +47,9 @@ def vectorizer_transform(text):
 
 # ベクトル化する文字列
 text = [
-    'I JIMMY SKUNK IS PUZZLED Old Mother West Wind had just come down from the Purple Hills and turned loose her children, the Merry Little Breezes, from the big bag in which she had been carrying them',
-    'They were very lively and very merry as they danced and raced across the Green Meadows in all directions, for it was good to be back there once more',
+    'The field was full of lush, green grass.',
+    'An elephant is a large animal. No-one appreciates being lied to.',
+    'What are we going to have for dinner tonight?'
     
 ]
 

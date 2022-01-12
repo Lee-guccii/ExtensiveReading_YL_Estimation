@@ -301,29 +301,10 @@ x_np = np.array(x_zenbu)
 y_np = np.array(keisankekka)
 
 
-#シャピロウィルク検定で正規性の確認
-#w値とp_value
-shap_w, shap_p_value = stats.shapiro(keisankekka)
-#p_valueが0.05以上なら，帰無仮説が採択→正規性がある
-if shap_p_value >= 0.05 :
-    print("正規性があるといえる")
-    #print(shap_p_value)
-
-
-    #ピアソンの相関係数をとる
-    # 相関行列を計算
-    coef = np.corrcoef(x_np, y_np)
-    soukan = coef[0][1]
-
-
-#p_valueが0.05以下なら，帰無仮説が棄却→正規性がない
-else:
-    print("正規性があるといえない")
-    #print(shap_p_value)
-            
-    #スピアマンの順位相関係数
-    correlation, pvalue = spearmanr(x_zenbu, keisankekka)
-    soukan = correlation
+#x_zenbuが正規性がないので，スピアマンの相関係数
+#スピアマンの順位相関係数
+correlation, pvalue = spearmanr(x_zenbu, keisankekka)
+soukan = correlation
 
 print("テキストの使いやすさ主成分レベル - 逆接、加法、比較の接続詞と他の品詞とのzスコアの平均値")
 print("相関結果:", soukan)

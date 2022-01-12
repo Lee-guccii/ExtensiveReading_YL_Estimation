@@ -7,7 +7,7 @@ import en_core_web_lg
 nlp = en_core_web_lg.load()
 
 #text_listにリストとして読み込む
-with open('book6_3.txt', 'r') as f:
+with open('book33.txt', 'r') as f:
     #改行("\n")を""に変換
     #text_list = f.read().splitlines()
     text = f.read()

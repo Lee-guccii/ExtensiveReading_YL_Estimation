@@ -3,7 +3,7 @@ import numpy as np
 import re
 
 #text_listにリストとして読み込む
-with open('book6_3.txt', 'r') as f:
+with open('book38.txt', 'r') as f:
     #改行("\n")を""に変換
     #text_list = f.read().splitlines()
     text = f.read()
@@ -24,15 +24,15 @@ kigou=0
 kigou_reigai=["=","+","'"]
 
 gyaku_setuzokusi=0
-gyaku = ["however", "but", "yet", "though", "in spite of"]
+#gyaku = ["however", "but", "yet", "though", "in spite of"]
 gyaku = ["however", "but"]
 
 huka_setuzokusi=0
-huka = ["and", "also", "another", "moreover", "as well as", "in addition"]
+#huka = ["and", "also", "another", "moreover", "as well as", "in addition"]
 huka = ["and", "moreover"]
 
 hikaku_setuzokusi=0
-hikaku = ["eqally", "similary", "likewise", "whereas", "in contrast", "comparatively"]
+#hikaku = ["eqally", "similary", "likewise", "whereas", "in contrast", "comparatively"]
 hikaku = ["although", "whereas"]
 
 while kazu < len(pos):
@@ -246,15 +246,15 @@ print(hinsi_kosuu)
 #zスコアの計算
 #平均値
 mean = np.mean(hinsi_kosuu)
-print(mean)
+#print(mean)
 #標準偏差
 std = np.std(hinsi_kosuu)
 #標準化
 z = (hinsi_kosuu - mean) / std
-print('standardized data(z): {}'.format(z))
-print('standardized data(z)(逆説接続詞のzスコア): {}'.format(z[gyaku_bangou]))
-print('standardized data(z)(付加接続詞のzスコア): {}'.format(z[huka_bangou]))
-print('standardized data(z)(比較接続詞のzスコア): {}'.format(z[hikaku_bangou]))
+#print('standardized data(z): {}'.format(z))
+#print('standardized data(z)(逆説接続詞のzスコア): {}'.format(z[gyaku_bangou]))
+#print('standardized data(z)(付加接続詞のzスコア): {}'.format(z[huka_bangou]))
+#print('standardized data(z)(比較接続詞のzスコア): {}'.format(z[hikaku_bangou]))
 
 print((z[gyaku_bangou]+z[huka_bangou]+z[hikaku_bangou])/3)
 
